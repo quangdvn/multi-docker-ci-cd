@@ -1,0 +1,26 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -t quangdvn/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run quangdvn/react-test -e CI=true yarn test
+
+after_success:
+  # Build every different image
+  - docker build -t quangdvn/multi-client ./client
+  - docker build -t quangdvn/multi-nginx ./nginx
+  - docker build -t quangdvn/multi-server ./server
+  - docker build -t quangdvn/multi-worker ./worker
+
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWROD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  # Take those images and push to the docker hub
+  - docker push quangdvn/multi-client
+  - docker push quangdvn/multi-nginx
+  - docker push quangdvn/multi-server
+  - docker push uangdvn/multi-worker
