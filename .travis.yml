@@ -24,3 +24,15 @@ after_success:
   - docker push quangdvn/multi-nginx
   - docker push quangdvn/multi-server
   - docker push quangdvn/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
+  region: 'us-west-2'
+  app: 'multi-container'
+  env: 'MultiContainer-env'
+  bucket_name: 'elasticbeanstalk-us-west-2-006923918343'
+  bucket_path: 'docker-multi-container'
+  on:
+    branch: master
