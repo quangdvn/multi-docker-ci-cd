@@ -29,10 +29,10 @@ deploy:
   provider: elasticbeanstalk
   access_key_id: $AWS_ACCESS_KEY
   secret_access_key: $AWS_SECRET_KEY
-  region: 'us-west-2'
-  app: 'Multi Container'
+  region: 'ap-southeast-1'
+  app: 'multi-container'
   env: 'MultiContainer-env'
-  bucket_name: 'elasticbeanstalk-us-west-2-006923918343'
+  bucket_name: 'elasticbeanstalk-ap-southeast-1-006923918343'
   bucket_path: 'docker-multi-container'
   on:
     branch: master
